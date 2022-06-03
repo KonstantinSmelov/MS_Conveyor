@@ -1,38 +1,18 @@
 package neostudy.dto;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
-
+import lombok.*;
 import java.math.BigDecimal;
 
-@Component
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
+@Builder
 public class LoanOfferDTO {
 
-    Long applicationId;
-    BigDecimal requestedAmount;
-    BigDecimal totalAmount;
-    Integer term;
-    BigDecimal monthlyPayment;
-    BigDecimal rate;
-    Boolean isInsuranceEnabled;
-    Boolean isSalaryClient;
-
-    @Override
-    public String toString() {
-        return "\nLoanOfferDTO{ " +
-                " applicationId=" + applicationId +
-                ", requestedAmount=" + requestedAmount +
-                ", totalAmount=" + totalAmount +
-                ", term=" + term +
-                ", monthlyPayment=" + monthlyPayment +
-                ", rate=" + rate +
-                ", isInsuranceEnabled=" + isInsuranceEnabled +
-                ", isSalaryClient=" + isSalaryClient +
-                " }";
-    }
+    private Long applicationId;
+    private BigDecimal requestedAmount;
+    private BigDecimal totalAmount;
+    private Integer term;
+    private BigDecimal monthlyPayment;
+    private BigDecimal rate;
+    private Boolean isInsuranceEnabled;
+    private Boolean isSalaryClient;
 }

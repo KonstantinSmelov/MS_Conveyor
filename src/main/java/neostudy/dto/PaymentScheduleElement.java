@@ -1,35 +1,17 @@
 package neostudy.dto;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
-
+import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Component
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
+@Builder
 public class PaymentScheduleElement {
 
-    Integer number;
-    LocalDate date;
-    BigDecimal totalPayment;
-    BigDecimal interestPayment;
-    BigDecimal debtPayment;
-    BigDecimal remainingDebt;
-
-    @Override
-    public String toString() {
-        return "\nPaymentScheduleElement {" +
-                "\nnumber=" + number +
-                "\n date=" + date +
-                "\n totalPayment=" + totalPayment +
-                "\n interestPayment=" + interestPayment +
-                "\n debtPayment=" + debtPayment +
-                "\n remainingDebt=" + remainingDebt +
-                '}';
-    }
+    private Integer number;
+    private LocalDate date;
+    private BigDecimal totalPayment;
+    private BigDecimal interestPayment;
+    private BigDecimal debtPayment;
+    private BigDecimal remainingDebt;
 }

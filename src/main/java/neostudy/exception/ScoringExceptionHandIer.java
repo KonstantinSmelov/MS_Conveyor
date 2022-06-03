@@ -1,4 +1,4 @@
-package neostudy.advices;
+package neostudy.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +10,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class MyControllerAdvice {
+public class ScoringExceptionHandIer {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> notValidException(MethodArgumentNotValidException e) {
 
-        List<String> errorsList = e.getBindingResult().getFieldErrors().stream().map(error -> ("\n" + error.getDefaultMessage())).collect(Collectors.toList());
+        List<String> errorsList = e.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> ("\n" + error.getDefaultMessage()))
+                .collect(Collectors.toList());
         errorsList.add("\n");
 
         return new ResponseEntity<>(errorsList.toString(), HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS);
@@ -23,7 +27,9 @@ public class MyControllerAdvice {
 
     @ExceptionHandler(ScoringException.class)
     public ResponseEntity<String> scoringInvalid(ScoringException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS);
+
+        return new ResponseEntity<>(e.getErrorList().toString(), HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS);
     }
+
 
 }
