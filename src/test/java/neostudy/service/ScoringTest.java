@@ -3,6 +3,7 @@ package neostudy.service;
 import neostudy.EmploymentStatus;
 import neostudy.dto.EmploymentDTO;
 import neostudy.dto.ScoringDataDTO;
+import neostudy.exception.ScoringException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,10 +22,10 @@ public class ScoringTest {
     @InjectMocks
     private Scoring scoring;
     private EmploymentDTO employmentDTO = null;
-    ScoringDataDTO scoringDataDTO = null;
+    private ScoringDataDTO scoringDataDTO = null;
 
-    @Before
-    public void setUp() {
+    @Test
+    public void scoringErrorsListWithoutUnder60() {
         employmentDTO = EmploymentDTO.builder()
                 .employmentStatus(EmploymentStatus.UNEMPLOYED)
                 .salary(BigDecimal.valueOf(200))
@@ -35,18 +36,8 @@ public class ScoringTest {
                 .employment(employmentDTO)
                 .amount(BigDecimal.valueOf(50000))
                 .birthdate(LocalDate.of(2020, 5, 15)).build();
-    }
 
-    @Test
-    public void scoringErrorsListWithoutUnder60() {
-        List<String> errorsList = List.of(
-                "\nБезработный",
-                "\nМаленькая ЗП",
-                "\nМаленький возраст",
-                "\nМаленький общий стаж",
-                "\nМаленький текущий стаж");
-
-        Assert.assertEquals(errorsList, scoring.getScoringErrorsList(scoringDataDTO));
+        Assert.assertThrows(ScoringException.class, () -> scoring.checkForScoringErrors(scoringDataDTO));
     }
 
     @Test
@@ -56,13 +47,11 @@ public class ScoringTest {
                 .salary(BigDecimal.valueOf(20000))
                 .workExperienceCurrent(5)
                 .workExperienceTotal(13).build();
-        scoringDataDTO.setEmployment(employmentDTO);
-        scoringDataDTO.setBirthdate(LocalDate.of(1960, 5, 15));
+        scoringDataDTO = ScoringDataDTO.builder()
+                .employment(employmentDTO)
+                .amount(BigDecimal.valueOf(50000))
+                .birthdate(LocalDate.of(1960, 5, 15)).build();
 
-        List<String> errorsList = List.of(
-                "\nБольшой возраст"
-                );
-
-        Assert.assertEquals(errorsList, scoring.getScoringErrorsList(scoringDataDTO));
+        Assert.assertThrows(ScoringException.class, () -> scoring.checkForScoringErrors(scoringDataDTO));
     }
 }

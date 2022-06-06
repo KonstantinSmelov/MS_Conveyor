@@ -17,8 +17,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -26,7 +24,7 @@ import java.util.List;
 class ConveyorControllerTest {
 
     @Autowired
-    ConveyorController conveyorController;
+    private ConveyorController conveyorController;
 
     @MockBean
     private ConveyorService conveyorService;
@@ -34,14 +32,12 @@ class ConveyorControllerTest {
     @MockBean
     private Scoring scoring;
 
-    private List<LoanOfferDTO> fakeLoanOfferDtoList = null;
-    private List<String> fakeErrorsList = new LinkedList<>();
     private ScoringDataDTO fakeScoringDataDTO = null;
     private CreditDTO fakeCreditDTO = null;
 
     @Test
     public void getLoanOffers() {
-        fakeLoanOfferDtoList = List.of(
+        List<LoanOfferDTO> fakeLoanOfferDtoList = List.of(
                 LoanOfferDTO.builder().build(),
                 LoanOfferDTO.builder().build(),
                 LoanOfferDTO.builder().build());
@@ -54,26 +50,23 @@ class ConveyorControllerTest {
 
     @Test
     void calculationWithScoringPass() throws ScoringException {
-        fakeErrorsList = new ArrayList<>();
         fakeScoringDataDTO = ScoringDataDTO.builder().amount(BigDecimal.TEN).build();
         fakeCreditDTO = CreditDTO.builder().amount(BigDecimal.TEN).build();
 
-        Mockito.when(scoring.getScoringErrorsList(fakeScoringDataDTO)).thenReturn(fakeErrorsList);
         Mockito.when(conveyorService.getCreditCalculation(fakeScoringDataDTO)).thenReturn(fakeCreditDTO);
 
         Assert.assertEquals(fakeCreditDTO.getAmount(), (conveyorController.calculation(fakeScoringDataDTO)).getAmount());
     }
 
     @Test
-    void calculationWithScoringFail() {
-        fakeErrorsList = List.of("error1", "error2", "error3");
+    void calculationWithScoringFail() throws ScoringException {
         fakeScoringDataDTO = ScoringDataDTO.builder().amount(BigDecimal.TEN).build();
         fakeCreditDTO = CreditDTO.builder().amount(BigDecimal.TEN).build();
 
-        Mockito.when(scoring.getScoringErrorsList(fakeScoringDataDTO)).thenReturn(fakeErrorsList);
+        Mockito.doThrow(ScoringException.class).when(scoring).checkForScoringErrors(fakeScoringDataDTO);
         Mockito.when(conveyorService.getCreditCalculation(fakeScoringDataDTO)).thenReturn(fakeCreditDTO);
 
         ScoringException e = Assert.assertThrows(ScoringException.class, () -> conveyorController.calculation(fakeScoringDataDTO));
-        Assert.assertEquals(e.getErrorList(), fakeErrorsList);
+        Assert.assertNotNull(e);
     }
 }
