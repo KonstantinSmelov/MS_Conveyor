@@ -29,7 +29,7 @@ public class ConveyorController {
 
     @Operation
     @PostMapping("/offers")
-    public List<LoanOfferDTO> getLoanOffers(@Valid @RequestBody LoanApplicationRequestDTO loanApplicationRequestDTO) {
+    public List<LoanOfferDTO> getLoanOffers(@RequestBody LoanApplicationRequestDTO loanApplicationRequestDTO) {
         log.info("@PostMapping(\"/offers\"): входящий LoanApplicationRequestDTO: {}", loanApplicationRequestDTO.toString());
 
         List<LoanOfferDTO> loanOfferDTOList = conveyorService.getOffers(loanApplicationRequestDTO);
