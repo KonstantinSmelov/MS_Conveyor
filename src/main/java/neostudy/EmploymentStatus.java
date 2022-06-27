@@ -1,5 +1,8 @@
 package neostudy;
 
 public enum EmploymentStatus {
-    UNEMPLOYED, SELF_EMPLOYED, BUSINESS_OWNER
+    UNEMPLOYED,
+    SELF_EMPLOYED,
+    BUSINESS_OWNER,
+    EMPLOYED
 }

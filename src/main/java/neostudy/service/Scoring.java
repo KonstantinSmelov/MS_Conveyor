@@ -53,6 +53,5 @@ public class Scoring {
             log.info("getScoringErrorsList(): итоговый errorsList: {}", errorsList);
             throw new ScoringException(errorsList);
         }
-
     }
 }
