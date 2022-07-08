@@ -180,25 +180,25 @@ public class ConveyorServiceImpl implements ConveyorService {
 
         for (int x = 0; x < term; x++) {
 
-            if(x < 1) {
+            if (x < 1) {
                 interestPayment = CreditCalc.interestPaymentCalculation(amount, monthlyRate);
             } else {
                 interestPayment = CreditCalc.interestPaymentCalculation(paymentScheduleElementList.get(x - 1).getRemainingDebt(), monthlyRate).setScale(2, RoundingMode.HALF_UP);
             }
-            log.info("getPaymentScheduleList(): Месяц оплаты = {}, interestPayment = {}", x+1, interestPayment);
+            log.info("getPaymentScheduleList(): Месяц оплаты = {}, interestPayment = {}", x + 1, interestPayment);
 
             debtPayment = CreditCalc.debtPaymentCalculation(monthlyPayment, interestPayment).setScale(2, RoundingMode.HALF_UP);
-            log.info("getPaymentScheduleList(): Месяц оплаты = {}, debtPayment = {}", x+1, debtPayment);
+            log.info("getPaymentScheduleList(): Месяц оплаты = {}, debtPayment = {}", x + 1, debtPayment);
 
-            if(x == 0) {
+            if (x == 0) {
                 remainingDebt = CreditCalc.remainDebtCalculation(amount, debtPayment);
             } else {
                 remainingDebt = CreditCalc.remainDebtCalculation(paymentScheduleElementList.get(x - 1).getRemainingDebt(), debtPayment);
             }
-            log.info("getPaymentScheduleList(): Месяц оплаты = {}, remainingDebt = {}", x+1, remainingDebt);
+            log.info("getPaymentScheduleList(): Месяц оплаты = {}, remainingDebt = {}", x + 1, remainingDebt);
 
             PaymentScheduleElement paymentScheduleElement = PaymentScheduleElement.builder()
-                    .number(x+1)
+                    .number(x + 1)
                     .date(LocalDate.now().plus(x + 1, ChronoUnit.MONTHS))
                     .totalPayment(monthlyPayment)
                     .interestPayment(interestPayment)

@@ -7,7 +7,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class ConveyorApplication /*implements CommandLineRunner */{
+public class ConveyorApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ConveyorApplication.class, args);

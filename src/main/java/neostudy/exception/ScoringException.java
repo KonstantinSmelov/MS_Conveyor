@@ -1,13 +1,11 @@
 package neostudy.exception;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
 @AllArgsConstructor
 public class ScoringException extends Exception {
 
