@@ -2,6 +2,9 @@ name: Sonar
 on:
   push:
     branches: ["mvp6"]
+  pull_request:
+    branches: ["develop"]
+
 
 jobs:
   SonarCloud:
