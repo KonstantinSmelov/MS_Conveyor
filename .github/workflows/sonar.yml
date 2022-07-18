@@ -1,5 +1,8 @@
 name: Sonar
-on: [push]
+on:
+  push:
+    branches:
+      - branch-*
 
 jobs:
   SonarCloud:
