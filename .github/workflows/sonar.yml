@@ -1,10 +1,6 @@
 name: Sonar
-on:
-  push:
-    branches: ["mvp6"]
-  pull_request:
-    branches: ["develop"]
 
+on: [push, pull_request]
 
 jobs:
   SonarCloud:
