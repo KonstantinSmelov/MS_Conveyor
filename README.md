@@ -1,7 +1,15 @@
-# MS-Conveyor
+# Микросервис №1 - Conveyor
 
-[![Build status](https://github.com/KonstantinSmelov/Conveyor/actions/workflows/maven.yml/badge.svg)](https://github.com/KonstantinSmelov/Conveyor/actions/workflows/maven.yml)
-[![codecov](https://codecov.io/gh/KonstantinSmelov/Conveyor/branch/mvp6/graph/badge.svg)](https://codecov.io/gh/KonstantinSmelov/Conveyor)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=KonstantinSmelov_Conveyor&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=KonstantinSmelov_Conveyor)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=KonstantinSmelov_Conveyor&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=KonstantinSmelov_Conveyor)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=KonstantinSmelov_Conveyor&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=KonstantinSmelov_Conveyor)
+ ***Функция:*** расчет кредитных предложений в зависимости от полученных данных
+
+Входит в состав микросервисного приложения "Кредитный конвеер", состоящего из 5 микросервисов:
+
+* [Микросервис №2 Deal (сслыка на репозиторий)](https://github.com/KonstantinSmelov/MS_Deal)
+* [Микросервис №3 Application (сслыка на репозиторий)](https://github.com/KonstantinSmelov/MS_Application)
+* [Микросервис №4 Dossier (сслыка на репозиторий)](https://github.com/KonstantinSmelov/MS_Dossier)
+* [Микросервис №5 Gateway (сслыка на репозиторий)](https://github.com/KonstantinSmelov/MS_Gateway)
+
+
+***Общая архитектура:***
+
+![Alt-текст](https://i.postimg.cc/GhvqX3xN/1.png)
